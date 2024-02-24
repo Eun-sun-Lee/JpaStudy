@@ -17,14 +17,14 @@ public class Order {
     @Column(name = "order_id")
     private Long id;
 
-    @ManyToOne // 다대일 (Order - Many)
+    @ManyToOne(fetch = FetchType.LAZY) // 다대일 (Order - Many)
     @JoinColumn(name = "member_id") // FK 이름
     private Member member;
 
-    @OneToMany (mappedBy = "order") // 거울, OrderItem 테이블에 있는 order field에 의해 매핑됨.
+    @OneToMany (mappedBy = "order", cascade = CascadeType.ALL) // 거울, OrderItem 테이블에 있는 order field에 의해 매핑됨.
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "delivery_id")
     private Delivery delivery;
 
