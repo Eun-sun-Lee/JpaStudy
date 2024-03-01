@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.BatchSize;
 import org.springframework.cglib.core.Local;
 
 import java.time.LocalDateTime;
@@ -25,6 +26,7 @@ public class Order {
     @JoinColumn(name = "member_id") // FK 이름
     private Member member;
 
+    @BatchSize(size = 1000) // 컬렉션인 경우에
     @OneToMany (mappedBy = "order", cascade = CascadeType.ALL) // 거울, OrderItem 테이블에 있는 order field에 의해 매핑됨.
     private List<OrderItem> orderItems = new ArrayList<>();
 
